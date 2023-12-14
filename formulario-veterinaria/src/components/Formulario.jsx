@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const Formulario = ({ paciente, setPaciente }) => {
+const Formulario = ({ pacientes, setPacientes }) => {
     const [nombre, setNombre] = useState('');
     const [propietario, setPropietario] = useState('');
     const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ const Formulario = ({ paciente, setPaciente }) => {
             sintomas
         }
 
-        setPaciente([...paciente, objetoPaciente]);
+        setPacientes([...pacientes, objetoPaciente]);
 
         setNombre('');
         setPropietario('');

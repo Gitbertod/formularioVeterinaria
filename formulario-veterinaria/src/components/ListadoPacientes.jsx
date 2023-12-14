@@ -1,8 +1,17 @@
 import React from 'react'
+import Paciente from './Paciente'
 
-const ListadoPacientes = () => {
+const ListadoPacientes = ({ pacientes }) => {
   return (
-    <div>ListadoPacientes</div>
+    <div>
+      <div>ListadoPacientes</div>
+      {pacientes.map(paciente =>
+        <Paciente paciente={paciente}
+        />)}
+
+
+    </div>
+
   )
 }
 

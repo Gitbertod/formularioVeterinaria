@@ -1,19 +1,23 @@
 import { useState } from 'react'
 import Header from './components/Header'
 import Formulario from './components/formulario'
+import ListadoPacientes from './components/ListadoPacientes'
 
 import './App.css'
 
 function App() {
-  const [paciente, setPaciente] = useState([])
+  const [pacientes, setPacientes] = useState([])
 
   return (
     <>
       <Header></Header>
       <Formulario
-        paciente={paciente}
-        setPaciente ={setPaciente}
+        pacientes={pacientes}
+        setPacientes={setPacientes}
+      />
 
+      <ListadoPacientes
+        pacientes={pacientes}
       />
 
     </>
