@@ -1,5 +1,5 @@
 import React from 'react'
-import Paciente from './Paciente'
+import Paciente from '../paciente/Paciente'
 
 const ListadoPacientes = ({ pacientes }) => {
   return (
