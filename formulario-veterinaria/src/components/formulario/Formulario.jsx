@@ -9,6 +9,14 @@ const Formulario = ({ pacientes, setPacientes }) => {
     const [alta, setAlta] = useState('');
     const [sintomas, setSintomas] = useState('');
 
+    const [error, setError] = useState(false)
+
+    const generateId = () => {
+        const random = Math.random().toString(36).substring(2)
+        const date = Date.now().toString(36)
+        return random + date
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const objetoPaciente = {
@@ -16,23 +24,33 @@ const Formulario = ({ pacientes, setPacientes }) => {
             propietario,
             email,
             alta,
-            sintomas
+            sintomas,
+            id: generateId()
         }
 
-        setPacientes([...pacientes, objetoPaciente]);
+
+        const values = Object.values(objetoPaciente)
+
+        if (values.includes("")) {
+            setError(true)
+        } else {
+            setPacientes([...pacientes, objetoPaciente]);
+            setError(false)
+        }
 
         setNombre('');
         setPropietario('');
         setEmail('');
         setAlta('');
         setSintomas('');
-    }
 
+    }
+    console.log(error)
 
     return (
         <div className={style.formulario}>
             <form onSubmit={handleSubmit}>
-
+                {error && <div className={style.validation}>Faltan datos</div>}
                 <div>
                     <label htmlFor="nombre">Nombre: </label>
                     <input
@@ -82,7 +100,7 @@ const Formulario = ({ pacientes, setPacientes }) => {
                     />
                 </div>
                 <div>
-                    <button>Agregar Paciente</button>
+                    <button className={style.agregarPaciente}>Agregar Paciente</button>
                 </div>
             </form>
         </div>

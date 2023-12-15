@@ -1,12 +1,27 @@
-const Paciente = ({paciente}) =>{
-    const {nombre,propietario,email,alta,sintomas} = paciente
+import style from './Paciente.module.css'
+const Paciente = ({ paciente }) => {
+    const { nombre, propietario, email, alta, sintomas } = paciente
     return (
-        <div>
-            <h4>Nombre: {nombre}</h4>
-            <h4>Propietario: {propietario}</h4>
-            <h4>Email: {email}</h4>
-            <h4>Alta: {alta}</h4>
-            <h4>Sintomas: {sintomas}</h4>
+        <div className={style.paciente}>
+            <p>Nombre: <span>{nombre}</span> </p>
+            <p>Propietario: <span>{propietario}</span></p>
+            <p>Email: <span>{email}</span></p>
+            <p>Alta: <span>{alta}</span></p>
+            <p>Sintomas: <span>{sintomas}</span></p>
+
+            <div className={style.botonesPaciente}>
+                <button
+                    type='button'
+                    className={style.editar}
+                >Editar
+                </button>
+
+                <button
+                    type='button'
+                    className={style.eliminar}
+                >Eliminar
+                </button>
+            </div>
         </div>
     )
 }
