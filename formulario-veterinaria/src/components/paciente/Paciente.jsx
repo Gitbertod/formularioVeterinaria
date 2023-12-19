@@ -1,6 +1,13 @@
 import style from './Paciente.module.css'
-const Paciente = ({ paciente,setPaciente }) => {
-    const { nombre, propietario, email, alta, sintomas } = paciente
+const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
+    const { nombre, propietario, email, alta, sintomas, id } = paciente
+    const handleEliminar = () =>{
+        const respuesta = confirm('Deseas eliminar este paciente?')
+        if(respuesta){
+            eliminarPaciente(id)
+        }
+    }
+    
     return (
         <div className={style.paciente}>
             <p>Nombre: <span>{nombre}</span> </p>
@@ -13,14 +20,14 @@ const Paciente = ({ paciente,setPaciente }) => {
                 <button
                     type='button'
                     className={style.editar}
-                    onClick={()=>setPaciente(paciente)}
+                    onClick={() => setPaciente(paciente)}
                 >Editar
                 </button>
 
                 <button
                     type='button'
                     className={style.eliminar}
-                    onClick={()=>console.log("Eliminar")}
+                    onClick={handleEliminar}
                 >Eliminar
                 </button>
             </div>
