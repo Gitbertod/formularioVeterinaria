@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from './Formulario.module.css'
+import Error from "../error/Error";
 
 
-const Formulario = ({ pacientes, setPacientes }) => {
+const Formulario = ({ pacientes, setPacientes, paciente,setPaciente }) => {
     const [nombre, setNombre] = useState('');
     const [propietario, setPropietario] = useState('');
     const [email, setEmail] = useState('');
@@ -11,6 +12,14 @@ const Formulario = ({ pacientes, setPacientes }) => {
 
     const [error, setError] = useState(false)
 
+    useEffect(() => {
+        setNombre(paciente.nombre);
+        setPropietario(paciente.propietario);
+        setEmail(paciente.email);
+        setAlta(paciente.alta || '');
+        setSintomas(paciente.sintomas);
+    }, [paciente])
+
     const generateId = () => {
         const random = Math.random().toString(36).substring(2)
         const date = Date.now().toString(36)
@@ -18,26 +27,43 @@ const Formulario = ({ pacientes, setPacientes }) => {
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault()
         const objetoPaciente = {
             nombre,
             propietario,
             email,
             alta,
-            sintomas,
-            id: generateId()
+            sintomas
+
+        }
+
+        //validacion        
+        e.preventDefault()
+        if ([nombre, propietario, email, alta, sintomas].includes('')) {
+            setError(true)
+            console.log(error)
+            return
         }
 
 
-        const values = Object.values(objetoPaciente)
+        if (paciente.id) {
+            //cuando estoy editando el registro (** REPASAR ESTE CODIGO **)
+            objetoPaciente.id = paciente.id
+            const pacientesActualizados = pacientes.map(pacienteState => {
+                if (pacienteState.id === paciente.id) {
+                  return  objetoPaciente
+                } else {
+                   return pacienteState
+                }
+            })
+            setPacientes(pacientesActualizados);
+            setPaciente({})
 
-        if (values.includes("")) {
-            setError(true)
         } else {
+            objetoPaciente.id = generateId()
             setPacientes([...pacientes, objetoPaciente]);
             setError(false)
+            console.log("se agrego nuevo paciente")
         }
-
         setNombre('');
         setPropietario('');
         setEmail('');
@@ -45,17 +71,25 @@ const Formulario = ({ pacientes, setPacientes }) => {
         setSintomas('');
 
     }
-    console.log(error)
+
 
     return (
         <div className={style.formulario}>
-            <form onSubmit={handleSubmit}>
-                {error && <div className={style.validation}>Faltan datos</div>}
+            <form
+                onSubmit={handleSubmit}>
+
+                {error &&
+                    <Error>
+                        <p>Todos los campos son obligatorios</p>
+                    </Error>
+                }
+
                 <div>
                     <label htmlFor="nombre">Nombre: </label>
                     <input
                         type="text"
                         id="nombre"
+                        placeholder="Nombre de la mascota"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
                     />
@@ -63,8 +97,8 @@ const Formulario = ({ pacientes, setPacientes }) => {
                 <div>
                     <label htmlFor="propietario">Nombre propietario: </label>
                     <input
-                        type="text"
                         id="propietario"
+                        type="text"
                         placeholder="Nombre de propietario"
                         value={propietario}
                         onChange={(e) => setPropietario(e.target.value)}
@@ -76,15 +110,16 @@ const Formulario = ({ pacientes, setPacientes }) => {
                     <input
                         type="email"
                         id="email"
-                        onChange={(e) => setEmail(e.target.value)}
                         value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
 
                 <div>
                     <label htmlFor="alta">Alta</label>
                     <input
-                        type="date" id="alta"
+                        id="alta"
+                        type="date"
                         value={alta}
                         onChange={(e) => setAlta(e.target.value)}
                     />
@@ -92,7 +127,7 @@ const Formulario = ({ pacientes, setPacientes }) => {
 
                 <div>
                     <label htmlFor="sintomas" type="text">Sintomas: </label>
-                    <input
+                    <textarea
                         type="text"
                         id="sintomas"
                         value={sintomas}
@@ -100,7 +135,11 @@ const Formulario = ({ pacientes, setPacientes }) => {
                     />
                 </div>
                 <div>
-                    <button className={style.agregarPaciente}>Agregar Paciente</button>
+                    <input
+                        type="submit"
+                        className={style.agregarPaciente}
+                        value={paciente.id ? 'Editar paciente' : 'Agregar paciente'}
+                    />
                 </div>
             </form>
         </div>

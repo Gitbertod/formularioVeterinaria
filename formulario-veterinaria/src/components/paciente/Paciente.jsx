@@ -1,5 +1,5 @@
 import style from './Paciente.module.css'
-const Paciente = ({ paciente }) => {
+const Paciente = ({ paciente,setPaciente }) => {
     const { nombre, propietario, email, alta, sintomas } = paciente
     return (
         <div className={style.paciente}>
@@ -13,12 +13,14 @@ const Paciente = ({ paciente }) => {
                 <button
                     type='button'
                     className={style.editar}
+                    onClick={()=>setPaciente(paciente)}
                 >Editar
                 </button>
 
                 <button
                     type='button'
                     className={style.eliminar}
+                    onClick={()=>console.log("Eliminar")}
                 >Eliminar
                 </button>
             </div>

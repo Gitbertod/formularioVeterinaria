@@ -1,0 +1,11 @@
+.validation{
+    width: 100%;
+    height: 40px;
+    border: none;
+    color: white;
+    background-color: #c50000;
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+    justify-content: center;
+}
