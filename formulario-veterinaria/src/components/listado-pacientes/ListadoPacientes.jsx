@@ -5,7 +5,7 @@ import style from './ListadoPaciente.module.css'
 const ListadoPacientes = ({ pacientes, setPaciente, eliminarPaciente }) => {
   return (
     <div className={style.listadoPacientes}>
-      <div>ListadoPacientes</div>
+      <div className={style.tituloListado}><h2>ListadoPacientes</h2></div>
       {pacientes.map(paciente =>
         <Paciente
           key={paciente.id}

@@ -1,5 +1,13 @@
 .listadoPacientes {
    display: flex;
    justify-content: center;
-   flex-direction: column; 
+   flex-direction: column;
+   margin-left: 7px;
+}
+
+.tituloListado {
+   display: flex;
+   justify-content: center;
+   text-align: center;
+   margin: 0px auto;
 }

@@ -1,12 +1,9 @@
 #root {
-  
   background-color: #f3f4f6;
   display: flex;
   justify-content: center;
   align-content: center;
-  width: 100%;
-  padding: 0px;
-  margin: 0px auto;
+  width: 90%;
   
 }
 
