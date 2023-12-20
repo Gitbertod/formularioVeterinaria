@@ -1,9 +1,9 @@
 import React from 'react'
 import style from './Error.module.css'
 
-const Error = () => {
+const Error = ({children}) => {
   return (
-    <div className={style.validation}>Faltan datos</div>
+    <div className={style.validation}>{children}</div>
   )
 }
 

@@ -3,7 +3,7 @@ import style from './Formulario.module.css'
 import Error from "../error/Error";
 
 
-const Formulario = ({ pacientes, setPacientes, paciente,setPaciente }) => {
+const Formulario = ({ pacientes, setPacientes, paciente, setPaciente }) => {
     const [nombre, setNombre] = useState('');
     const [propietario, setPropietario] = useState('');
     const [email, setEmail] = useState('');
@@ -27,6 +27,15 @@ const Formulario = ({ pacientes, setPacientes, paciente,setPaciente }) => {
     }
 
     const handleSubmit = (e) => {
+        //validacion        
+        e.preventDefault()
+        if ([nombre, propietario, email, alta, sintomas].includes('')) {
+            setError(true)
+            console.log(error)
+            return;
+        }
+        setError(false)
+
         const objetoPaciente = {
             nombre,
             propietario,
@@ -36,13 +45,6 @@ const Formulario = ({ pacientes, setPacientes, paciente,setPaciente }) => {
 
         }
 
-        //validacion        
-        e.preventDefault()
-        if ([nombre, propietario, email, alta, sintomas].includes('')) {
-            setError(true)
-            console.log(error)
-            return
-        }
 
 
         if (paciente.id) {
@@ -50,9 +52,9 @@ const Formulario = ({ pacientes, setPacientes, paciente,setPaciente }) => {
             objetoPaciente.id = paciente.id
             const pacientesActualizados = pacientes.map(pacienteState => {
                 if (pacienteState.id === paciente.id) {
-                  return  objetoPaciente
+                    return objetoPaciente
                 } else {
-                   return pacienteState
+                    return pacienteState
                 }
             })
             setPacientes(pacientesActualizados);
@@ -127,7 +129,8 @@ const Formulario = ({ pacientes, setPacientes, paciente,setPaciente }) => {
 
                 <div>
                     <label htmlFor="sintomas" type="text">Sintomas: </label>
-                    <textarea
+                    {sintomas == "" && error ?  <p style={{ color: "red", margin: "0px" }}>Falta rellenar este campo</p> : <p style={{ display: "none" }}></p>}
+                    <input
                         type="text"
                         id="sintomas"
                         value={sintomas}
