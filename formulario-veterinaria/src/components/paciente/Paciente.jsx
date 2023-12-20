@@ -1,9 +1,11 @@
 import style from './Paciente.module.css'
-const Paciente = ({ paciente, setPaciente, eliminarPaciente }) => {
-    const { nombre, propietario, email, alta, sintomas, id } = paciente
-    const handleEliminar = () =>{
-        const respuesta = confirm('Deseas eliminar este paciente?')
-        if(respuesta){
+const Paciente = ({paciente, setPaciente, eliminarPaciente}) => {
+    const { nombre, propietario, email, alta, sintomas, id } = paciente
+
+    const handleEliminar = () => {
+        const respuesta = confirm('Deseas eliminar este paciente?');
+
+        if(respuesta) {
             eliminarPaciente(id)
         }
     }
